@@ -75,7 +75,7 @@ const plantMine = (row, cell, mine) => {
             case START_GAME:
                 return {
                     ...state,
-                    date:{
+                    data:{
                         row: action.row,
                         cell: action.cell,
                         mine: action.mine,
@@ -118,8 +118,7 @@ const plantMine = (row, cell, mine) => {
                         around = around.concat([tableData[row + 1][cell - 1], tableData[row + 1][cell], tableData[row + 1][cell + 1]]);
                       }
                       const count = around.filter(function (v) {
-                        return [CODE.MINE, CODE.FLAG_MINE, CODE.QUESTION_MINE].includes(v);
-                      }).length;
+                        return [CODE.MINE, CODE.FLAG_MINE, CODE.QUESTION_MINE].includes(v);}).length;
                       if (count === 0) { // 주변칸 오픈
                         if (row > -1) {
                           const near = [];
@@ -143,13 +142,14 @@ const plantMine = (row, cell, mine) => {
                         }
                       }
                       if (tableData[row][cell] === CODE.NORMAL) { // 내 칸이 닫힌 칸이면 카운트 증가
-                        openCount =+ 1;
+                        openCount += 1;
                       }
                       tableData[row][cell] = count;
                     };
                     checkAround(action.row, action.cell);
                     let hold = false;
                     let result = '';
+                    console.log(state.data.row, state.data.cell, state.data.mine )
                     console.log(state.data.row * state.data.cell - state.data.mine, state.openCount, openCount);
                     if (state.data.row * state.data.cell - state.data.mine === state.openCount + openCount) { // 승리
                       hold = true;

@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useContext, memo} from 'react';
+import React, { useState, useCallback, useContext, memo } from 'react';
 import { START_GAME, TableContext} from './MineSweeper'
 
 const Form = memo(() => {
@@ -6,7 +6,7 @@ const Form = memo(() => {
     const [row, setRow] = useState(10);
     const[cell, setCell] = useState(10);
     const [mine, setMine] = useState(20);
-    const {dispatch} = useContext(TableContext);
+    const { dispatch } = useContext(TableContext);
 
     const onChangeRow = useCallback ((e) => {
         setRow(e.target.value)
