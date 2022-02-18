@@ -248,7 +248,7 @@ const plantMine = (row, cell, mine) => {
             return (
                 <TableContext.Provider value={value}>
                     <Form />
-                    <div>{timer}</div>
+                    <div>Stopwatch: {timer}</div>
                     <Table />
                     <div>{result}</div>
                 </TableContext.Provider>
