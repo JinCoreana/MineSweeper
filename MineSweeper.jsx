@@ -15,13 +15,12 @@ export const CODE = {
 
 export const TableContext = createContext({
     tableData: [],
-    
     hold: true,
     dispatch: () => {},
 });
 
 const initialState = {
-    tableDate: [],
+    tableData: [],
     data: {
         row: 0,
         cell: 0,
@@ -35,12 +34,12 @@ const initialState = {
 
 const plantMine = (row, cell, mine) => {
     console.log (row, cell, mine);
-    const candidate = Array (row * cell).fill().map((arr, i) => { 
+    const candidate = Array(row * cell).fill().map((arr, i) => { 
       return i;
     });
     const shuffle = [];
     while (candidate.length > row * cell - mine) {
-        const chosen = candidate.splice(Math.floor(Math.random() * candidate.length, 1)[0]);
+        const chosen = candidate.splice(Math.floor(Math.random() * candidate.length), 1)[0];
     shuffle.push(chosen);
     }
 
@@ -86,6 +85,7 @@ const plantMine = (row, cell, mine) => {
                     hold: false,
                     timer: 0
                 };
+
 
                 case OPEN_CELL: {
                     const tableData = [...state.tableData];
@@ -143,7 +143,7 @@ const plantMine = (row, cell, mine) => {
                         }
                       }
                       if (tableData[row][cell] === CODE.NORMAL) { // 내 칸이 닫힌 칸이면 카운트 증가
-                        openCount += 1;
+                        openCount =+ 1;
                       }
                       tableData[row][cell] = count;
                     };
@@ -153,7 +153,7 @@ const plantMine = (row, cell, mine) => {
                     console.log(state.data.row * state.data.cell - state.data.mine, state.openCount, openCount);
                     if (state.data.row * state.data.cell - state.data.mine === state.openCount + openCount) { // 승리
                       hold = true;
-                      result = `${state.timer}초만에 승리하셨습니다`;
+                      result = `You found all mines in ${state.timer}sec`;
                     }
                     return {
                       ...state,
@@ -233,7 +233,7 @@ const plantMine = (row, cell, mine) => {
             useEffect (() => {
                 let timer;
                 if (hold === false) {
-                    timer = setInterveal(() => {
+                    timer = setInterval(() => {
                         dispatch({ type: INCREASE_TIMER });
                     }, 1000);
                 }
